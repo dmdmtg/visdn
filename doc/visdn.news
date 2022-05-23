@@ -1,0 +1,57 @@
+Announcing improvements to visdn for the 630/730 terminals!
+
+Latest versions:	ProPhone		= 4.0
+			FP3			= 3.2
+			Host (UNIX) program	= 4.0
+
+	The FP3 version has not yet been updated (only the ProPhone version
+	has).  I will eventually get around to updating the FP3 version also.
+
+In order to use the latest version, you should exit layers,
+TURN YOUR TERMINAL OFF, then get back into layers and download visdn.
+(For some reason, exiting visdn, uncaching it, and then
+restarting it doesn't always get the newest version.)
+
+visdn provides a graphical user interface on a 730 terminal to a 7506 or 7507
+ISDN phone equipped with a Feature Package 3 Asynchronous Data Module or
+the unofficial "ProPhone" chip.
+In addition to the normal 7506/7507 display, keypad,
+and call appearance/feature buttons, you get the ability to:
+
+	- label, add, delete, change, or move buttons
+	- add local buttons (audix password, calling card numbers, etc.)
+	- do directory queries using the keyboard (no more keypad!)
+	- create heirarchical speed call lists on a button 2 menu
+	- maintain call history in a file on the UNIX host
+	- display post(1) database information on incoming calls
+	- display voice and audix help menus
+	- receive electronic mail when you get audix messages or miss calls
+	- and lots more!
+
+You customize the interface in your startup file, including button placement
+and speedcall list initialization.  You press buttons with the mouse, select
+numbers from the speedcall menu, and never have to touch the keypad again.
+
+REQUIREMENTS:
+	1. You need a 7506 or 7507 set on your desk.
+	2. You must allocate a serial port on your 730 terminal to connect to
+		the port on the back of the phone.
+	3. You should have extra memory in the 730 terminal, 'cause this
+		is a large application to download.
+	4. Your 7506/7507 set must have ADM2/Feature Package 3 (FP3)
+		or the "ProPhone" version 1.5 chip installed.
+		ProPhone version 1.6 has too many bugs to be very useful.
+
+	visdn is compatible with the 730 IDM card.
+
+HOW TO GET ADM2/FEATURE PACKAGE 3
+
+	See ORDERING INFORMATION on the man page:
+
+
+HOW TO RUN VISDN
+	Type
+		toolman visdn
+
+Eric Claeys
+claeys@lucent.com

@@ -1,0 +1,55 @@
+h40990
+s 00044/00000/00000
+d D 1.1 92/07/23 13:59:16 trl 1 0
+c date and time created 92/07/23 13:59:16 by trl
+e
+u
+U
+t
+T
+I 1
+Buttons.c
+Buttons.h
+CallApp.h
+Data.h
+Debug.h
+DialPlnMod.c
+DialPlnMod.h
+DisplayMod.c
+DisplayMod.h
+Exit.c
+FILES
+Fw_io.h
+Hayes.c
+Hayes.h
+Help.c
+Info.c
+Info.h
+Init.c
+KeyBoard.c
+KeyBoard.h
+KeyPad.c
+Lamp.save
+LampMod.c
+LampMod.h
+Layout.h
+Menu.h
+Module.h
+Mouse.c
+OutQueue.c
+OutQueue.h
+Screen.c
+TermProc.c
+TermProc.h
+Timer.c
+Timer.h
+dmdusr.h
+io.h
+label.h
+main.c
+makefile
+regex.c
+reggie
+reggie.i
+visdn.h
+E 1

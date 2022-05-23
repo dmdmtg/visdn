@@ -1,0 +1,345 @@
+SECTION	ISDN Voice Features
+	With ISDN, you are able to have more than one instance of your phone
+	number on your set.  Multiple incoming calls to your phone number can
+	be offered to you as long as there are idle, non-restricted appearances
+	left....
+
+	NOTE: With ISDN, the switch-hook flash is no longer recognized and if
+	      used will disconnect your call.
+	SECTION	Auto Call Setup
+		In DIR QUERY mode, AUTO CALL will place a call to the party
+		showing on the display.
+
+		   User is in query mode (press DIR QUERY)
+
+		   When desired number is displayed, press AUTO CALL.
+
+		   A call is automatically placed to the person whose name and
+		   number appear on the display.
+
+		   To query another user without ending session, press
+                   NEXT MSG.
+
+		   End the query session by pressing DIR QUERY. 
+
+		The query session is not terminated when AUTO CALL is pressed.
+		You may continue to query using the NEXT button.  The session
+		will be ended when the DIR QUERY button is pressed, or the
+		session has been idle for a long time.
+	ENDSECTION
+	SECTION	Auto Callback
+		A user can call the last number that was placed to the phone
+		if an INCOMING NUMBER was sent.  Press the Rtn Last Out
+		button on the CPE.  The user will either be connected
+		to the party or a message will be heard alerting the user
+		that the line is busy or that the line was not
+		reachable.  If the line is busy an announcement will be
+		played giving instructions to the user.
+
+	ENDSECTION
+	SECTION	Auto Hold
+		The Auto Hold setting causes an active call to be automatically
+		put on hold if the user selects another call appearance without
+		pressing the HOLD button.
+	ENDSECTION
+	SECTION	Auto InterCom
+	ENDSECTION
+	SECTION	Call Forwarding
+		The Call Forwarding button allows the user to forward
+		their phone to another location.  To set the call
+		forwarding DN, go off hook, enter #8, wait for second
+		dialtone and enter phone number.  Wait for confirmation
+		tone.  To activate the feature, press the Call Forward
+		feature button.  The green lamp should light.  To
+		cancel Call Forwarding, press the Call Forward button
+		to extinguish the lamp.
+	ENDSECTION
+	SECTION	Call Pickup
+	ENDSECTION
+	SECTION	Directory Query
+	ENDSECTION
+	SECTION	Drop
+		The DROP button allows the ISDN phone user to drop the third
+		party added for a three-way call or the last party added to
+		a conference call.  For a two-party call, pressing this button
+		disconnects the call and returns the user to dial tone.
+	ENDSECTION
+	SECTION	Hold
+		A user can place an active call on hold by momentarily pressing
+		the HOLD button.  When a call is placed on hold, the user is
+		free to handle other calls on the ISDN station.  For example,
+		the user can originate or answer a call on another call
+		appearance.
+
+		When the user places an active call on hold, the "in use" (red)
+		lamp is extinguished and the "status" (green) lamp begins to
+		flutter.  A call is held until either the held party disconnects
+		or the user reenters the held call.  To reenter a held call,
+		the user presses the call appearance button that has the held
+		call.  If the user is on-hook when the call appearance button is
+		pressed, the call is reentered when the user lifts the receiver
+		off-hook.  When the call is reentered, the "in use" (red) and
+		"status" (green) lamps light steady on the phone.
+	ENDSECTION
+	SECTION	Inspect
+	ENDSECTION
+	SECTION	Leave Word Calling
+	ENDSECTION
+	SECTION	Manual Exclusion
+	ENDSECTION
+	SECTION	Next
+	ENDSECTION
+	SECTION	Priority Calling
+		Priority Calling may be activated by user going off-hook and
+		entering "*11".  Second dial tone will be returned.  User then
+		enters 5 digit extension of person being called.
+	ENDSECTION
+	SECTION	Six-Way Calling
+		Six-Way CONFERENCE button can be used with any of the call
+		appearances of your phone number.  The user must have an active
+		call appearance.  To activate Six-Way Calling, go off
+		hook and enter "#6".  Second dial tone will be
+		returned.  When the CONFERENCE button is pressed, an
+		idle call appearance of your phone is automatically selected
+		for the second leg of the conference call.
+
+		   The user is off-hook. 
+		
+		   The user MUST enter "#6" before initiating first
+    		   call of conference call.
+
+		   The user establishes first call.
+
+		   (1) User presses the CONFERENCE button.  The current
+   		   call is put on hold.  The "in use" (red) lamp
+		   extinguishes and the "status" (green) lamp flutters
+		   for the current call appearance.
+
+		   (2) User can select a held or ringing call
+		   appearance to connect to a third party, or the user
+		   can select an idle call appearance to dial the phone
+		   number of a third party.  User and third party are talking.
+
+		   (3) User presses the CONFERENCE button.   The user, the third
+		   party, and the held call are brought together on a three-way
+		   conference call.  The lamps associated with the current call
+		   are extinguished.  The "in use" (red) and "status" (green)
+		   lamps associated with the original call light steady.  The
+		   display indicates CONFERENCE x (where x=3, 4, 5 or 6).
+
+		   Repeat steps (1), (2) and (3) until the desired
+		   number of parties has joined the line (max 6-way call).
+	ENDSECTION
+	SECTION	Speed Calling
+		Speed Calling permits the user to dial selected numbers using
+		fewer digits than normally required.  This is done by assigning
+		a 1-digit or 2-digit code to the number you would like
+		dialed.  After entering the 1-digit or 2-digit code,
+		the user can enter the end-of-dialing character (#) or
+		wait for a time-out (approx. 4 seconds.) 
+		To use your Speed Calling List:
+
+		   Take appropriate action to get dial tone.
+
+		   Press the desired Speed Calling button or enter the
+		   one-digit two-digit Speed Calling code associated
+		   with the number you are trying to reach (range 2-7
+		   for one-digit)(range 20-49 for two-digit).
+		   Press # or wait for time-out.
+
+		   The call will proceed as usual.
+		SECTION Program 2-digit Speed Calling List
+			Speed Calling permits the user to dial selected numbers using
+			fewer digits than normally required.  This is done by assigning
+			a 2-digit code to the number you would like dialed.
+
+			To enter numbers in your Speed Calling List for the first
+			time or change a number in your list:
+
+			   Take appropriate action to get dial tone.
+
+			   Enter *5 to get second dial tone.
+
+			   Enter the 2-digit code of the list entry (20-49.)
+
+			   Immediately following the 2-digit code, enter the number
+			   that is to be dialed automatically when the 2-digit code
+			   is dialed or the Speed Calling button is used.
+
+			   User receives confirmation tone and hangs up.
+
+			The entire sequence must be repeated if an error occurs.
+
+			On 7506 sets, codes 20-25 are associated with the three
+			Speed Calling buttons (23-25 are accessed by pressing SHIFT
+			before the Speed Calling button.)
+		ENDSECTION
+		SECTION Program 1-digit Speed Calling List
+			Speed Calling permits the user to dial selected numbers using
+			fewer digits than normally required.  This is done by assigning
+			a 1-digit code to the number you would like dialed.
+
+			To enter numbers in your Speed Calling List for the first
+			time or change a number in your list:
+
+			   Take appropriate action to get dial tone.
+
+			   Enter 85 to get second dial tone.
+
+			   Enter the 1-digit code of the list entry (2-7.)
+
+			   Immediately following the 1-digit code, enter the number
+			   that is to be dialed automatically when the 1-digit code
+			   is dialed or the Speed Calling button is used.  If call 
+			   is outside CENTREX group, but within 708 area code, 
+			   enter *9 and a seven digit number.  If the number is 
+			   outside the 708 area code, enter *91 and a ten digit number.
+			
+			   User receives confirmation tone and hangs up.
+
+			The entire sequence must be repeated if an error occurs.
+
+			On 7506 sets, codes 2-7 are associated with the three
+			Speed Calling buttons.
+		ENDSECTION
+	ENDSECTION
+	SECTION	Telephone Number Privacy
+		Telephone Number Privacy can be activated on a per call
+		basis.  The user goes off hook and dials "*895".  A
+		stuttered second dial tone is returned.  User enters
+		number desired to complete call.
+	ENDSECTION
+	SECTION	Three-way Conference
+		The CONFERENCE button can be used with any of the call
+		appearances of your phone number.  The user must have an active
+		call appearance.  When the CONFERENCE button is pressed, an
+		idle call appearance of your phone is automatically selected
+		for the second leg of the conference call.
+
+		   The user is off-hook and active on a call.
+
+		   User presses the CONFERENCE button.  The current call is put
+		   on hold.  The "in use" (red) lamp extinguishes and the
+		   "status" (green) lamp flutters for the current call
+		   appearance.
+
+		   User can select a held or ringing call appearance to connect
+		   to a third party, or the user can select an idle call
+		   appearance to dial the phone number of a third party.
+
+		   User and third party are talking.
+
+		   User presses the CONFERENCE button.   The user, the third
+		   party, and the held call are brought together on a three-way
+		   conference call.  The lamps associated with the current call
+		   are extinguished.  The "in use" (red) and "status" (green)
+		   lamps associated with the original call light steady.  The
+		   display indicates CONFERENCE 3.
+	ENDSECTION
+	SECTION	Transfer
+	ENDSECTION
+ENDSECTION
+SECTION	AUDIX Guide
+	SECTION	Basic Commands
+		Help         *H  Complete list of current options
+		Alternate
+		  Addressing *A  Alternate addressing between name and extension
+		Back Up      *B  Back up to previous header/message pair in
+		                 unopened or old (not new) categories
+		Delete       *D  Delete message or mailing list
+		Undelete    **U  Undelete last message during current session 
+		Listen       *L  Listen to message after hearing its header
+		List
+		  Addressing *L  Prepare to address with a list
+		Names/
+		  Numbers   **N  Look up subscriber's extension number or name
+		  Directory      (Q=7 and Z=9)
+		Relogin     **R  Relog in with a different password
+		Restart      *R  Restart at Activity Menu or mailbox
+		Transfer Out *T  Transfer to another extension
+		Wait         *W  Cause system to wait
+		Operator     *0  Divert call to operator or attendant
+		Exit AUDIX  **X  Leave AUDIX and retain dial tone (toll only)
+		Disconnect       Hang up.
+	ENDSECTION
+	SECTION	Secondary Commands (While Listening)
+		The following commands cannot be used at the Activity Menu,
+		but you will find them useful while listening to your
+		messages.
+
+		   0  Listen to incoming message    6  Advance 4 seconds
+
+		   4  Increase volume               2  Rewind to current header
+
+		   7  Decrease volume               3  Replay header or message
+
+		   9  Increase speed                0  Replay entire message
+
+		   8  Decrease speed                #  Skip to next header
+
+		   5  Rewind 4 seconds
+	ENDSECTION
+	SECTION	Secondary Commands (While Sending)
+		You will find the following commands helpful while you are
+		creating and sending messages.
+
+		   2  Rewind message you have recorded
+
+		   3  Listen to the message you have recorded
+
+		   #  Signal completion of a single entry, such as
+		      extension number, list name, or subscriber name
+
+		  *#  Approve entire task, such as addressing a message
+	ENDSECTION
+	SECTION	Activity Menu
+		button
+
+		  1     Record Messages
+
+		  2     Get Incoming Messages
+
+		  3     Greet Callers
+
+		  4     Check Outgoing Messages and File Cabinet
+
+		  5     Change Password/Generate and Maintain Lists
+
+		  6     Administer Outcalling
+
+		SECTION	1  Record Messages
+		ENDSECTION
+		SECTION	2  Get Incoming Messages
+		ENDSECTION
+		SECTION	3  Greet Callers
+		ENDSECTION
+		SECTION	4  Check Outgoing Messages and File Cabinet
+		ENDSECTION
+		SECTION	5  Change Password/Generate and Maintain Lists
+		ENDSECTION
+		SECTION	6  Administer Outcalling
+		ENDSECTION
+	ENDSECTION
+	SECTION	To Log In
+	ENDSECTION
+	SECTION	To Leave an AUDIX Activity
+	ENDSECTION
+	SECTION	To Change Your Password
+	ENDSECTION
+	SECTION	To Record a Personal Greeting
+	ENDSECTION
+	SECTION	To Record And Send a Message
+	ENDSECTION
+	SECTION	To Listen to Messages
+	ENDSECTION
+	SECTION	To Respond to Incoming Messages
+	ENDSECTION
+	SECTION	Mailing Lists
+		SECTION	Create Mailing List
+		ENDSECTION
+		SECTION	Modify Mailing List
+		ENDSECTION
+		SECTION	Using a Mailing List
+		ENDSECTION
+	ENDSECTION
+ENDSECTION

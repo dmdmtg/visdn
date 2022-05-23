@@ -1,0 +1,45 @@
+h00294
+s 00034/00000/00000
+d D 1.1 92/07/23 13:51:51 trl 1 0
+c date and time created 92/07/23 13:51:51 by trl
+e
+u
+U
+t
+T
+I 1
+visdn provides a graphical user interface to a 7506 or 7507 ISDN phone on
+a 730 terminal.  In addition to the normal 7506/7507 display, keypad,
+and call appearance/feature buttons, you get the ability to
+
+	- label, add, delete, change, or move buttons
+	- add local buttons (audix password, calling card numbers, etc)
+	- do directory queries using the keyboard (no more keypad!)
+	- create heirarchical speed call lists on a button 2 menu
+	- maintain call history in a file on the UNIX host
+	- display post database information on incoming calls
+	- display voice and audix help menus
+	- receive electronic mail when you get audix messages or miss calls
+	- probably other things, but I forget right now...
+
+You customize the interface in your startup file, including button placement
+and speedcall list initialization.  You press buttons with the mouse, select
+numbers from the speedcall menu, and never have to touch the keypad again.
+
+REQUIREMENTS:
+	1. You need a 7506 or 7507 set on your desk.
+	2. You must allocate a serial port on your 730 terminal to connect to
+		the port on the back of the phone.
+	3. You should have extra memory in the 730 terminal, 'cause this
+		is a large application to download.
+	4. Your 7506/7507 set must have ProPhone 1.5 firmware installed.
+
+HOW TO GET PROPHONE 1.5 FIRMWARE:
+	1. Do not ask the provider.
+	2. Contact XXXXXXX (ihtelcom!xxxxxx)
+
+Type
+	toolman visdn
+
+for details on how to run visdn.
+E 1

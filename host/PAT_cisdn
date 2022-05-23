@@ -1,0 +1,213 @@
+# Perform the specified command.
+CMD=$0
+
+usage()
+{
+	exec >&2
+	echo "Usage: $CMD subcommand|string"
+	echo
+	echo "Available subcommands (and abbreviations) and their arguments are:"
+	echo "\ta adjunct"
+	echo "\tc conference [phone_number|pq_query]"
+	echo "\tC CFA [phone_number|pq_query]"
+	echo "\td dial phone_number|pq_query"
+	echo "\tD drop"
+	echo "\th hold"
+	echo "\tl line call_appearance"
+	echo "\tm mute"
+	echo "\tr redial"
+	echo "\ts speaker"
+	echo "\tS shift"
+	echo "\tt transfer [phone_number|pq_query]"
+	echo "\tv volume up|+|down|-"
+	echo "\tw window exit|uncache/exit|toggle|open|close"
+	echo
+	echo "'string' is sent to the phone with no processing."
+}
+
+[ $# -eq 0 ] && usage && exit 1
+
+# See 'toolman visdn' for more information on this script.
+
+VISDN_PIPE=${VISDN_PIPE:-$HOME/.visdnpipe}
+if [ ! -p $VISDN_PIPE -a ! -c $VISDN_PIPE ]	# "-c" for testing
+then
+	# The pipe is removed by visdn when it exits.
+	echo "$CMD: You don't appear to be running visdn!" >&2
+	exit 1
+fi
+
+
+# Basically, the way we work is to send a string to the
+# UNIX process (by writing to a pipe it's reading).
+# The string contains a leading 1-character number (specifying the action
+# to take) and a string specific to the action.
+DIALNUM730=`echo "\0356"`	# octal 0356 is visdn char for DIALNUM730
+RMTACT730=`echo "\0357"`	# octal 0357 is visdn char for RMTACT730
+
+SUB=$1
+shift
+
+# Sets NUMBER to the phone number to dial,
+# and FULL_NUMBER to what we use in the info message.
+do_pq()
+{
+	# If the 1st character is [a-zA-Z], assume it's a pq lookup.
+	case $1 in
+	[a-zA-Z]*)
+		#FULL_NUMBER=`pq -o '%20name %3loc %16ema 	%tel' $*`
+		#[ $? -ne 0 ] && exit 3
+		pq -o '%20name %3loc %16ema 	%tel' $* > /usr/tmp/pat.$$
+
+		NUM=`cat /usr/tmp/pat.$$|wc -l`
+		if [ "$NUM" -gt 1 ]
+		then
+		
+			FULL_NUMBER=`selectitem /usr/tmp/pat.$$`
+			# For now, if there's more than 1 name, quit.
+			# If you want to fix this, please do so.
+			#echo "Sorry, there are multiple entries for '$*'." >&2
+			#exit 4
+		else
+			FULL_NUMBER=`cat /usr/tmp/pat.$$`
+		fi
+
+		# Get the phone number only.
+		NUMBER=`echo "$FULL_NUMBER" | sed 's/.*	//'`
+		;;
+	*)
+		NUMBER=$*
+		FULL_NUMBER=$NUMBER
+		;;
+	esac
+}
+
+case $SUB in
+a|adjunct)
+	echo "${RMTACT730}adjunct" > $VISDN_PIPE
+	;;
+c|conference)
+	echo "${RMTACT730}conference" > $VISDN_PIPE
+	if [ $# -gt 0 ]
+	then
+		do_pq "$*"
+		echo "Conferencing: $FULL_NUMBER"
+		echo "${RMTACT730}$NUMBER" > $VISDN_PIPE
+	fi
+	;;
+d|dial)
+	if [ $# -eq 0 ]
+	then
+		exec >&2
+		echo "Usage: $CMD $SUB phone_number|pq_query"
+		echo
+		echo "In addition to the regular phone digits,"
+		echo "the phone_number can contain a-z and A-Z (e.g., '1800CALLATT')."
+		exit 1
+	fi
+
+	do_pq "$*"
+	echo "Calling: $FULL_NUMBER"
+	echo "${DIALNUM730}${NUMBER}" > $VISDN_PIPE
+	;;
+C|cfa)
+	# usages:
+	#
+	#	cfa			# toggle cfa light
+	#	cfa 36003		# forward to audix (light must be off)
+	#	cfa '*9,123-4567'	# forward outside (light must be off)
+	#	cfa
+
+	if [ $# -eq 0 ]
+	then
+		# toggle cfa light
+		echo "${RMTACT730}CFA" > $VISDN_PIPE
+	else
+		# To set the CFA number, go off hook, enter #8,
+		# wait for 2ndary dialtone, enter the phone number,
+		# and wait for the confirmation tone.
+
+		do_pq "$*"
+#		echo "${RMTACT730}CA#8" > $VISDN_PIPE
+#		sleep 2		# wait for 2ndary dialtone
+#		echo "${RMTACT730}${NUMBER}#" > $VISDN_PIPE	# send the number
+
+		# "+" waits for 2ndary dial tone.
+		echo "${RMTACT730}CA#8+${NUMBER}#" > $VISDN_PIPE
+		sleep 5		# wait for confirmation tone
+		echo "${RMTACT730}speaker" > $VISDN_PIPE   # turn speaker off
+
+		# Now activate CFA by toggling the CFA button.
+		echo "${RMTACT730}CFA" > $VISDN_PIPE
+	fi
+	;;
+D|drop)
+	echo "${RMTACT730}drop" > $VISDN_PIPE
+	;;
+h|hold)
+	echo "${RMTACT730}hold" > $VISDN_PIPE
+	;;
+l|line)
+	if [ $# -eq 0 ]
+	then
+		echo "Usage: $CMD $SUB call_appearance" >&2
+		echo "e.g., '$CMD $SUB a' for the 1st line." >&2
+		exit 1
+	fi
+echo "$CMD: The 'line' subcommand doesn't work yet."   ### FIX XXX:
+	echo "${RMTACT730}line" > $VISDN_PIPE
+	;;
+m|mute)
+	echo "${RMTACT730}mute" > $VISDN_PIPE
+	;;
+r|redial)
+	echo "${RMTACT730}redial" > $VISDN_PIPE
+	;;
+s|speaker)
+	echo "${RMTACT730}speaker" > $VISDN_PIPE
+	;;
+S|shift)
+	echo "${RMTACT730}shift" > $VISDN_PIPE
+	;;
+t|transfer)
+	echo "${RMTACT730}transfer" > $VISDN_PIPE
+	if [ $# -gt 0 ]
+	then
+		do_pq "$*"
+		echo "Transfering to: $FULL_NUMBER"
+		echo "${RMTACT730}$NUMBER" > $VISDN_PIPE
+	fi
+	;;
+v|volume)
+	case $1 in
+	up|+)	X="volup" ;;
+	down|-)	X="voldown" ;;
+	*)	echo "Usage: $CMD $SUB up|+|down|-" >&2
+		exit 1
+		;;
+	esac
+	echo "${RMTACT730}${X}" > $VISDN_PIPE
+	;;
+w|window)
+	case $1 in
+	e|exit)		X="exit" ;;
+	u|uncache/exit)	X="uncache/exit" ;;
+	t|toggle)	X="toggle" ;;
+	o|open)		X="open" ;;
+	c|close)	X="close" ;;
+	*)	echo "Usage: $CMD $SUB exit|uncache/exit|toggle|open|close" >&2
+		exit 1
+		;;
+	esac
+	echo "${RMTACT730}${X}" > $VISDN_PIPE
+	;;
+
+*)
+	# It's not a reserved token, so send it to the phone with
+	# no processing.
+	# ($SUB is the 1st argument)
+	echo "${RMTACT730}${SUB}$*" > $VISDN_PIPE
+	;;
+esac
+
+exit 0

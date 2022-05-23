@@ -1,0 +1,45 @@
+h18815
+s 00034/00000/00000
+d D 1.1 92/12/03 10:42:38 trl 1 0
+c date and time created 92/12/03 10:42:38 by trl
+e
+u
+U
+t
+T
+I 1
+TO ADD AN OPTION:
+
+- define new option variable
+
+	f.main.c:	int callapps, cols, rows, portnum, cacheit, debug,
+		popit, leaveit, audix;
+
+- initialize new variable
+
+	f.main.c:	callapps = cols = rows = cacheit = debug =
+		popit = leaveit = 0;
+
+- command line getopt processing
+
+	f.main.c:	while ((opt = getopt(argc, argv, "Aa:Cc:D:f:I:i:l:L
+		n:Pp:r:s:t:V")) != EOF)
+	f.main.c:			case 'L': leaveit = 1; break;
+
+- boot fcn call
+
+	f.main.c:	    debug, popit, leaveit, audix)==FALSE)
+
+- pass new option thru fcn call
+
+	BootTerm.c:Boolean	BootTerm(callapps, cols, rows, portnum, type,
+		cachef, debug, popit, leaveit, audix)
+	BootTerm.c:int callapps, cols, rows, portnum, cachef, debug, popit,
+		leaveit, audix;
+	BootTerm.c:(void) sprintf(cmd, "%s %s -a%d -c%d -r%d -p%d -t%s -D%d 
+		s %s %s %s %s 2>/dev/null",
+	BootTerm.c:			leaveit ? "-L" : "",
+	BootTerm.c:(void) sprintf(cmd, "%s %s/lib/%s/%s -a%d -c%d -r%d -p%d
+		-t%s -D%d %s %s %s %s %s 2>/dev/null",
+	BootTerm.c:			leaveit ? "-L" : "",
+E 1

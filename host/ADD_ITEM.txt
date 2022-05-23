@@ -1,0 +1,26 @@
+TO ADD A COMMAND-LINE OPTION (e.g, "leaveit"):
+
+- define new option variable
+
+	main.c:	int callapps, cols, ... leaveit, ...;
+
+- initialize new variable
+
+	main.c:	callapps = cols = ... leaveit = ... = 0;
+
+- command line getopt processing
+
+	main.c:	while ((opt = getopt(argc, argv, "Aa:...L...")) != EOF)
+	main.c:			case 'L': leaveit = 1; break;
+
+- boot function call
+
+	main.c:	    debug, popit, leaveit, audix)==FALSE)
+
+- pass new option thru function call
+
+	BootTerm.c:Boolean	BootTerm(callapps, cols, ...  leaveit, ...)
+	BootTerm.c:int callapps, cols, rows, ...  leaveit, ...;
+	BootTerm.c:(void) sprintf(cmd, "%s %s -a%d -c%d -r%d -p%d -t%s -D%d 
+		s %s %s %s %s 2>/dev/null",
+	BootTerm.c:			leaveit ? "-L" : "",

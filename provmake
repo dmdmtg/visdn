@@ -1,0 +1,50 @@
+PATH=$PATH:$TOOLS/adm/bin
+#
+#
+usage()
+{
+	echo "provmake [machine types]" >&2
+	exit
+}
+PKGID=visdn
+
+# These don't exist on the sparc rmake machine.
+# I grabbed them from SunOS ihspa.
+SPARCLIBS="host/sparc_libpq.a host/sparc_libdk.a"
+SOLARISLIBS="host/solaris_libpq.a host/sparc_libdk.a"
+
+# As of 10/12/94 This is out-of-date (1992) on the ibm rmake machine.
+# I grabbed the pq 5.1 (1994) version from ihlpa.
+IBMLIBS="host/ibm_libpq.a"
+
+I486LIBS="host/i486_libpq.a host/i486_other.o"
+
+# SVR4 needs -Hodc for pre-SVR4 machines.
+case `uname -m` in
+i[34]86)	HEADER="Hodc" ;;		# cpio header type
+*)		HEADER="c" ;;
+esac
+
+# TERM_PRO="term.pro/*.[ch] term.pro/makefile term.pro/reggie term.pro/reggie.i"
+# TERM_FP3="term.fp3/*.[ch] term.fp3/makefile term.fp3/reggie term.fp3/reggie.i"
+# DOC="doc/makefile doc/visdn.1 doc/visdn.help doc/visdn.news doc/visdnrc.7506 doc/visdnrc.7507"
+OTHER="$SPARCLIBS $SOLARISLIBS $IBMLIBS $I486LIBS"
+
+SRC=visdn.cpio.Z
+find makefile hdr/*.h host/*.[ch] host/makefile $TERM_PRO $TERM_FP3 $DOC $OTHER -print | cpio -o$HEADER | compress > $SRC
+
+case $# in
+	0) set -- `cd $HOME/rep;ls`
+	   ;;
+esac
+for MACH
+do
+    if [ ! -d $HOME/rep/$ARG ]
+    then
+	usage
+    fi
+    ARGS=`awk -F"	" '{if ($1 == "'$MACH'") print $2}' < rmakes`
+    set -x
+    rmake -p$PKGID -P$HOME/.secret/.$PKGID -v -s$SRC -t$PKGID -m$MACH $ARGS
+    set +x
+done

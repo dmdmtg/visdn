@@ -1,0 +1,38 @@
+h40573
+s 00027/00000/00000
+d D 1.1 92/12/03 11:08:52 trl 1 0
+c date and time created 92/12/03 11:08:52 by trl
+e
+u
+U
+t
+T
+I 1
+ADDING A NEW OPTION:
+
+- hook
+
+	Hayes.c:			if( !con && !LeaveTop)
+
+- initialize
+
+	Init.c:	CacheOnExit = MakeTop = LeaveTop = SendAUDIXMsg = 0;
+
+- getopt set
+
+	Init.c:			LeaveTop = 1;
+
+- in menu
+
+	Init.c:	Options[3].text = "leave layer on top after hangup";
+	Init.c:	Options[3].flag = &LeaveTop;
+
+- define
+
+	Data.h:	int		GD_LeaveTop;
+	Data.h:#define LeaveTop	GLOBREF(GD_LeaveTop)
+
+- add number of options
+
+	f.Menu.h:#define MAXOPTION 4
+E 1

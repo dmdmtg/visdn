@@ -1,0 +1,527 @@
+h54466
+s 00516/00000/00000
+d D 1.1 92/07/23 13:51:50 trl 1 0
+c date and time created 92/07/23 13:51:50 by trl
+e
+u
+U
+t
+T
+I 1
+.TH VISDN 1 "EXPTOOLS"
+.SH NAME
+visdn \- Visual ISDN interface
+.SH SYNOPSIS
+.TP 6
+.B visdn
+[
+.B \-A
+] [
+.B \-c
+.B cols
+] [
+.B \-f
+.B file
+] [
+.B \-l
+.B logfile
+] \\
+.B \&
+\p[
+.B \-s
+.B speedfile
+] [
+.B \-C
+] [
+.B \-D
+.B flag
+] [
+.B \-n
+.B address
+] \\
+.B \&
+\p[
+.B \-r
+.B rows
+] [
+.B \-p
+.B portnum
+] [
+.B \-P
+] [
+.B \-t
+.B settype
+]
+.SH DESCRIPTION
+.I visdn
+is a 630/730 terminal mouse-oriented interface to the AT&T 7506 ISDN telephone.
+It allows the 630/730 terminal to augment the functionality of the 7506 set
+with unlimited speed calling lists, programmable function keys,
+and an interface to electronic mail on the UNIX host.
+Special firmware in the 7506/7507 set is required in order to run this tool.
+The options are:
+.P
+.TP 12 3
+.B "\-A"
+Turns on the "send AUDIX msg" option.
+.TP
+.B "\-c cols"
+Specify the number of \fBextra\fP feature button columns to add.
+This merely pre-expands the window to accommodate more buttons;
+button specifications will still cause the window to size itself automatically.
+Up to 6 extra columns are possible with the 7506 type,
+up to 3 extra with the 7507 type,
+for a total of 9 columns.
+.TP
+.B "\-C"
+Cache
+.I visdn
+in the terminal memory.
+Next time you won't have to wait for it to download.
+.TP
+.B "\-D flag"
+Set debugging options.
+Not for the faint of heart.
+.TP
+.B "\-f file"
+Specifies the data file to read button and speed calling specifications from.
+See the FILE FORMAT section below for a description of this file.
+Non-absolute pathnames will be treated as relative to \f(CW$HOME\fP.
+The default file is \f(CW$HOME/.visdnrc\fP.
+.TP
+.B "\-l logfile"
+All call activity will be logged in (appended to) the given file.
+Lines in this file have the time and date as an integer,
+a flag, the dialed number, the calling number, and the caller's name,
+all separated by tab characters.
+The flag is
+.B c
+for connections,
+.B d
+for disconnects,
+and
+.B u
+for unanswered calls.
+.TP
+.B "\-n notify"
+Specifies a mail address to mail AUDIX and other notifications to.
+.TP
+.B "\-p portnum"
+Specifies the port that the 7506 set is connected to.
+The default is port 1 (the Aux or printer port).
+Currently, port 0, 1, or 2 are valid.
+.TP
+.B "\-P"
+Pops the window to the top when a call is being received.
+.TP
+.B "\-r rows"
+Specifies the number of extra rows for feature buttons.
+The same comments apply as for the
+.B \-c
+option above.
+Up to 3 extra rows may be requested for both 7506 and 7507 types,
+for a maximum of 14 rows.
+.TP
+.B "\-s speedfile"
+The "save query" button 3 menu item will save a permanent copy of the
+speed call in this file.
+.B speedfile
+may be the same as the
+.B \-f
+file,
+but does not have a default value.
+.TP
+.B "\-t settype"
+Specifies the type of ISDN voice set.
+Currently,
+.B 7506
+and
+.B 7507
+are recognized;
+anything else yields a blank slate to place custom buttons on.
+.B 7506
+is the default type.
+.P
+.I visdn
+starts two terminal processes initially:
+one to communicate with the host,
+and another to serve as the visual interface to the phone.
+Other windows may be created and destroyed as needed,
+for example,
+the help window and the call information window.
+The host communication window is the original window that
+.I visdn
+is started in;
+it is the window which will remain when the program terminates.
+No user interaction is meaningful in this window,
+and it normally stays in the background.
+Enough said.
+.SH PHONE WINDOW
+The phone window is where most user interaction occurs.
+The initial layout is determined by the
+.B \-t
+option,
+so it will resemble a 7506 or 7507 ISDN set.
+From there,
+you can customize the layout by adding buttons and speed calling lists
+(see the startup file description below).
+At the bottom of the window is a bar that allows you to type text and send
+it to the phone.
+This is most useful in Directory Query mode,
+where what you type is converted to digits when you press return.
+.P
+Mouse button 1 is used to ``press'' buttons.
+The button action is effective only after the mouse button is released.
+It is possible to create buttons that do nothing.
+.P
+Mouse button 2 handles all the speed calling lists.
+You can create lists in a tree structure until you run out of terminal memory.
+Go nuts.
+.P
+Mouse button 3 has miscellaneous functionality.
+You can set some options,
+redraw the screen,
+exit the program,
+get help,
+create the call information window,
+save directory queries,
+and
+dial people you have looked up with
+.IR post (1).
+Most of it is fairly intuitive,
+but you have to remember that the ``save query''
+item only becomes available if a valid query result is being displayed,
+and ``snarf post'' is only valid if you have properly selected a post
+query line.
+.P
+Experimentation is recommended.
+.SH CALL INFORMATION WINDOW
+The call information window is useful if you have access to the post database
+on the host system.
+It shows information about incoming calls,
+including the person's login icon if it is available.
+A ``done'' button exists for your safety and enjoyment;
+use it to remove the window (don't just delete it).
+.SH HELP WINDOW
+Help is available on a button 2 menu for several topics.
+The interface is pretty rudimentary,
+but hey,
+it's better than nothing!
+.SH EXAMPLES
+To start
+.I visdn
+with a 7506 set connected to the printer port,
+cache the program in the terminal memory,
+arrange for notification of missed calls (and possibly AUDIX messages),
+and log all calls in a file,
+try this:
+.P
+.ti +5
+\f(CWvisdn -C -l $HOME/visdn.log -n $LOGNAME -p 1\fP
+.P
+With a 7507 set connected to, say, the
+.B Main2
+port,
+using a different startup file,
+and adding 2 extra columns and 2 extra rows for feature buttons, try this:
+.P
+.ti +5
+\f(CWvisdn -C -t 7507 -p 2 -f $HOME/visdnrc.7507 -c 2 -r 2\fP
+.P
+.SH STARTUP FILE FORMAT
+.ie t .ds TB \ \(gr\ 
+.el .ds TB <tab>
+Button specifications and speed calling lists may be kept in a file on the host.
+Blank lines and lines starting with a pound-sign (#) are ignored.
+Fields are tab separated (spaces don't count).
+Tabs are represented below as \*(TB.
+Other lines are assumed to be in one of the following formats:
+.P
+.TP 12 3
+\f(CWareacode=N\fP
+Specifies the local areacode for interpretation of DDN numbers.
+.TP
+\f(CWexchange=N1[->N2]\fP
+Specifies a local exchange,
+which can optionally be mapped to another prefix.
+See the examples below.
+.TP
+\f(CWbutton=R,C\*(TBname=S\fP
+.TP
+\f(CWbutton=R,C\*(TBname=S\*(TBvalue=V\*(TB[bind=F]\*(TB[flags...]\fP
+Creates a button at the specified row and column.
+An existing button at that location is replaced.
+\f(CWflags\fP is one or more of
+.RS
+.TP
+\fBautosave\fP
+Automatically save Directory Query results when the button is pressed.
+.TP
+\fBbox\fP
+Draw a box around the button.
+.TP
+\fBdonothing\fP
+This button has no action associated with it.
+Useful for putting labels on the screen.
+.TP
+\fBleft\fP
+This button takes up the left half of the row and column location.
+.TP
+\fBright\fP
+This button takes up the right half of the row and column location.
+.TP
+\fBshade\fP
+Draw the button shaded.
+.RE
+.TP
+\f(CWbutton=R,C\*(TBdelete\fP
+Deletes the button at the specified row and column.
+.TP
+\f(CWkeypad=X,Y\fP
+Place the keypad with upper left corner at location (X,Y).
+X and Y are pixel offsets from the upper left corner of the window.
+.TP
+\f(CWspeedlist=S\*(TBname=S\*(TBvalue=V\fP
+Speed call lists are accessed via the button 2 menu.
+The lists are arranged heirarchically,
+and may be arbitrarily nested (see STARTUP FILE EXAMPLES below).
+Selecting a menu item causes the value to be treated as a feature button press.
+.TP
+\f(CWinclude=file\fP
+Inserts the contents of the named file.
+Non-absolute file names are taken to be relative to $HOME.
+Included files may be nested to ``reasonable'' depths
+(i.e. watch out for exceeding standard open file limits.)
+.P
+\*(TB represents the tab character.
+Values represented by C, L, R, S, and V above may be:
+.TP 6 3
+.B C
+\- an integer representing the column (1-9) of the feature button.
+.TP
+.B F
+\- a function to bind the button to.
+Currently,
+the functions that may be bound to buttons mirror the button 3 menu selections.
+.B F
+may have one of the following values:
+.RS
+.TP 
+.B LoadButtons
+Causes the startup file to be re-read.
+.TP 
+.B InfoWindow
+Causes the Call Information window to be activated.
+Button 3 confirms placement of the window if it does not exist.
+.TP 
+.B HelpWindow
+Causes the Help Information window to be activated.
+Button 3 confirms placement of the window if it does not exist.
+.TP 
+.B SnarfPost
+If a
+.IR post (1)
+query line has been selected in a windowproc window,
+this action causes the phone number to be extracted from the line and dialed.
+The entire post query line must be selected.
+.TP 
+.B Quit
+Causes the r-u-sure confirmation cursor to become active.
+Button 3 confirms and terminates
+.I visdn.
+Any other button aborts termination.
+.TP 
+.B Redraw
+Redraws the phone screen.
+.TP 
+.B SaveQuery
+If a Directory Query has been successful,
+this button causes the query results in the display to be saved on the
+``Query History'' speed calling list.
+.RE
+.TP
+.B L
+\- the number of the lamp associated with the button.
+May be 2 hex digits (00-3f),
+M for message lamp,
+S for the speaker lamp,
+U for the mute lamp,
+or
+X for data lamp.
+.TP
+.B R
+\- an integer representing the row (1-14) of the feature button.
+.TP
+.B S
+\- a string value, with embedded blanks allowed.
+.TP
+.B V
+\- a dial string.
+Buttons and speed call list items must
+explicitly ask for a Call Appearance (CA) in order to initiate dialing.
+This is done by inserting a CA in the dial string.
+Normal keypad digits are valid.
+The following characters are treated specially in dialstrings:
+.RS
+.TP
+.B ,
+(comma) causes a half second pause before sending subsequent digits.
+.TP
+.B +
+waits for secondary dialtone before sending subsequent digits.
+.TP
+.B >
+waits for connection before sending subsequent digits.
+.TP
+.B ;
+command separator; waits for acknowledgment from set before continuing.
+.RE
+.P
+.SH STARTUP FILE EXAMPLES
+.P
+To specify the 708 areacode and map several local exchanges for 5-digit dialing:
+.P
+.ti +5
+\f(CWareacode=708\fP
+.ti +5
+\f(CWexchange=713->3\fP
+.ti +5
+\f(CWexchange=979->9\fP
+.P
+To change the label on an existing button:
+.P
+.ti +5
+\f(CWbutton=5,6\*(TBname=new name\fP
+.P
+To delete a button at row 7 column 7:
+.P
+.ti +5
+\f(CWbutton=7,7\*(TBdelete\fP
+.P
+To create a button that grabs a line and dials a number:
+.P
+.ti +5
+\f(CWbutton=4,5\*(TBname=HOME\*(TBvalue=CA*9,5551212\*(TBbox\fP
+.P
+To add 3 items to a speed call list:
+.P
+.ti +5
+\f(CWspeedlist=my group\*(TBname=XXX\*(TBvalue=CA93333\fP
+.ti +5
+\f(CWspeedlist=my group\*(TBname=YYY\*(TBvalue=CA93334\fP
+.ti +5
+\f(CWspeedlist=my group\*(TBname=ZZZ\*(TBvalue=CA93335\fP
+.P
+A department with 3 groups might have several speed call lists,
+organized by group:
+.P
+.ti +5
+\f(CWspeedlist=my dept/grp1\*(TBname=AAA\*(TBvalue=CA93333\fP
+.ti +5
+\f(CWspeedlist=my dept/grp1\*(TBname=BBB\*(TBvalue=CA93334\fP
+.ti +5
+\f(CWspeedlist=my dept/grp2\*(TBname=CCC\*(TBvalue=CA93335\fP
+.ti +5
+\f(CWspeedlist=my dept/grp3\*(TBname=XXX\*(TBvalue=CA93336\fP
+.ti +5
+\f(CWspeedlist=my dept/grp3\*(TBname=YYY\*(TBvalue=CA93337\fP
+.ti +5
+\f(CWspeedlist=my dept/grp3\*(TBname=ZZZ\*(TBvalue=CA93338\fP
+.P
+To create a totally custom layout, run
+.P
+.ti +5
+\f(CWvisdn -t brandx\fP
+.P
+An example ``brandx'' layout might be:
+.P
+.ti +5
+\f(CWbutton=1,1\*(TBname=34976\*(TBvalue=a\*(TBbox\*(TBlamp=01\fP
+.ti +5
+\f(CWbutton=2,1\*(TBname=34976\*(TBvalue=b\*(TBbox\*(TBlamp=02\fP
+.ti +5
+\f(CWbutton=3,1\*(TBname=34976\*(TBvalue=c\*(TBbox\*(TBlamp=03\fP
+.ti +5
+\f(CWbutton=5,1\*(TBname=Speaker\*(TBvalue=SP\*(TBbox\fP
+.ti +5
+\f(CWkeypad=150,100\fP
+.P
+Some dialstring examples:
+.P
+An outside number requiring secondary dialtone:
+.P
+.ti +5
+\f(CWbutton=4,3\*(TBname=HOME\*(TBvalue=CA*9+1234567\fP
+.P
+Dial Audix, wait for answer, pause 1/2 second, and send login sequence:
+.P
+.ti +5
+\f(CWbutton=5,3\*(TBname=AUDIX\*(TBvalue=CA36001>,#12345#\fP
+.P
+Dial a hotline number, wait for connect, then interact with advanced 800
+services:
+.P
+.ti +5
+\f(CWbutton=6,3\*(TBname=HOTLINE\*(TBvalue=CA*9+18001234567>,1,,2\fP
+.SH LOG FILE FORMAT
+The
+.B \-l
+option can be used to specify a file to log all calls in.
+Each line in this file has the following format:
+.P
+.ti +5
+\f(CWtime\*(TBflag\*(TBcalled-number\*(TBcalling-number\*(TBcalling-name\fP
+.P
+where
+.TP 14 3
+.B time
+is the numeric representation of the time that the event occured,
+.TP
+.B flag
+indicates what the record type is:
+.B c
+for a connected (answered) call,
+.B d
+when a call disconnects,
+or
+.B u
+for an unanswered call,
+.TP
+.B called-number
+is the display version of the number you dialed,
+.TP
+.B calling-number
+is the number (if known) of the person calling you,
+.TP
+.B calling-name
+is the displayed name (if known) of the person calling you.
+.P
+This information is simply appended to the specified file indefinitely.
+It remains to be seen what use can be made of it.
+.SH FILES
+\f(CW$HOME/.visdnrc\fP \- default initialization file
+.br
+\f(CW$TOOLS/lib/visdn/visdn.help\fP \- help database
+.br
+\f(CW$TOOLS/lib/630/visdn.m\fP \- downloadable program
+.SH SEE ALSO
+Stevens, I. C., ``ProPhone User's Manual, Issue 4.0,'' January 25, 1991, DRAFT.
+.SH BUGS
+Full 7506/7507 functionality is not supported by the
+.I Hayes
+protocol,
+so
+.I visdn
+cannot fully emulate these ISDN phones.
+.P
+Deleting any of the individual windows created by
+.I visdn
+via means external to
+.I visdn
+voids any warrantees about terminal behavior thereafter.
+In other words,
+if you use the 630/730 button 3 ``delete'' item on any of these windows,
+you're on your own.
+.SH PROVIDER
+Alan Hastings
+E 1

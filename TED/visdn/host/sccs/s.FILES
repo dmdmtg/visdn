@@ -1,0 +1,20 @@
+h12847
+s 00009/00000/00000
+d D 1.1 92/07/23 14:03:52 trl 1 0
+c date and time created 92/07/23 14:03:52 by trl
+e
+u
+U
+t
+T
+I 1
+BootTerm.c
+Data.c
+FILES
+Help.c
+Info.c
+Log.c
+main.c
+makefile
+visdn.h
+E 1

@@ -1,0 +1,149 @@
+The following fixes and features were added to the latest "visdn"
+program (which is NOT in exptools -- I never figured out how to get
+it compiled and distributed everywhere).
+
+Eric Claeys, claeys@lucent.com
+
+=========================================================================
+More ICI's now work:
+	- "Pri" (priority)
+	- "Pck" (call pickup)
+	- "LIC" (Last In Call)
+	- Hopefully all the others, too.
+
+The letters a-z and A-Z are allowed in phone number in the following cases,
+and are converted to the appropriate telephone digits (e.g., "a" is
+converted to a "2"):
+	- In speed call lists, when the 1st 2 characters of the value are "CA".
+	  (It's possible to have a speed call entry that doesn't dial a number,
+	   but instead sends a string to the phone to control it, e.g., "*B4"
+	   to press button 4.  In this case, we wouldn't want the "*B4" to be
+	   converted to "*24".)
+	- When entering phone numbers (that begin with "CA") in the bottom of
+	  the visdn window.
+	- In Directory Query strings entered from the keyboard (this has always
+	  been the case).
+	- When entered via the UNIX command line using "cvisdn dial".
+	  (More on the "cisdn" command below.)
+This feature is useful to dial numbers like "1-800-CALLATT" without having
+to figure out what the "CALLATT" maps to.
+
+">" at the START of number now redials the previous number.
+">" elswhere in a number still waits for secondary dialtone.
+
+"+" as the first character of a phone number (e.g., "CA+92886") is not needed,
+and in fact is ignored.  Otherwise, the "+" sends the string up to the "+" and
+then waits for dialtone.
+
+The new IH, IX, IW, and IHC Directory Query format (starting Sep 18, 1994)
+now works.
+
+The format of the log file changed:
+	- All fields are now separated by tabs.
+	  This makes it very easy to parse the records, but means that some
+	  records are wider than an 80-column screen.
+	- Added the call appearance field (e.g., "a=").
+	- Added the Inid field (e.g., "InI", "OuI", etc.).
+	- Added the duration of completed calls (in hh:mm:ss).
+	- The called number, called name, calling number, and
+	  calling name are saved in the log file.
+	  If there is both an outgoing and incoming number (or name),
+	  they are separated by a ":".
+	  I considered using 4 separate fields (called number, called name,
+	  calling number, calling name), but that would have made the log
+	  records too long.
+
+Logging works much much better.
+	- All calls are logged.
+	- Multiple simultaneous calls works now.
+	- Don't get spurious "d"isconnect entries.
+
+Fixed a bug where electronic mail wasn't always sent on "u"nanswered calls.
+
+Entering a 'q' in a directory query now sends a '7' instead of a '9'.
+
+Added some new command-line options (see the man page for more info):
+
+	-E	Leaves the visdn window open after the last call is done.
+
+	-F	Tracks the status of features, and optionally writes the
+		status to a separate file (or a UNIX pipe).
+		Also see the "-L" option on the man page.
+
+	-O	Opens (i.e., uniconizes) the visdn window on OUTGOING calls.
+
+
+Added the ability to send strings to the phone from the UNIX command line
+using the "cisdn" command.
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+pqinfo= added.	XXXXXXXXXXXXXXX
+
+References to "cornet" were deleted since it's no longer used.
+
+UTS processes no longer die when new calls come in.
+
+Added debugging for the phone line -- visdn writes to the debug file
+everything the phone sends to the 730.
+This is mostly for my debugging use,
+although I highly suggest you add "2> /tmp/$LOGNAME.visdn" to the command
+line (or some other temporary file) to catch any error message and any
+debugging output.
+To get this debugging output, start visdn with "-D 64" or, once it's running,
+toggle the button 3, "debug->R  Raw phone line" menu item.
+
+You can now send debug output to a separate file using "-D filename" (as long as
+"filename" doesn't begin with a [0-9]).
+By default, any debugging you have turned on goes to stderr.
+This is most useful for the tool supporter.
+
+If visdn can't talk to the phone when it starts, it gives better error
+messages and just sits there, rather than starting up anyway (and clearing
+the error messages before you have a chance to see them).
+
+The visdn version string now displays correctly at the top of the visdn window.
+
+Added some new menu 3 items:
+	cancel dial	to cancel an outstanding redial
+	debug		submenu with debug options
+
+===================== Known bugs ====================
+ProPhone 1.6 doesn't work very well (the version number is displayed on the
+terminal LCD when you start visdn).  This is a bug in the chip, not visdn.
+
+The lights on the terminal for the speakerphone, mute button, and adjunct
+speakerphone sometimes are incorrect.  This doesn't effect anything,
+but it can be confusing.
+
+Incoming CFA calls can give an "u"nanswered log entry even though you
+answered the call.  This appears to be a ProPhone bug.
+Luckily, you'll rarely receive an incoming CFA call (someone would have to
+call another person who has their phone calls forwarded to you -- most people
+have their calls forwared to Audix).
+
+The 730 sometimes crashes (e.g., SYSTEM EXCEPTION) when exiting visdn if,
+for example, you're running an older version of visdn, exit visdn,
+then redownload a newer version of visdn.
+It seems to help if you exit visdn the 1st time,
+then exit layers, then get back into layers, and redownload visdn.
+It's seems like exiting visdn doesn't always clear out all its memory,
+and then downloading a new version get some of the old memory.
+
+If you have an adjunct speaker phone and use "cisdn cfa some_number",
+when it's done setting the Call Forward All number, you regular speaker phone
+will turn ON.  Until I fix this, you'll have to turn it off by yourself.
+
+Turning on some levels of debugging via the command line can cause
+visdn (and possibly your layers session) to hang.
+I've seen it happen when -D128 (SPEEDCALL) is used over TCP when the
+speedcall list has lots of entries.
+This shouldn't matter to most users, since normally you'll only use
+debugging to help determine the cause of a problem.
+
+When using the "info" window and you don't answer an
+InX (incoming external) call that has a phone number, your info window
+sometimes is cleared.  This doesn't happen with InI calls or calls you answer.
+The missed InX call is still added to your "Missed Calls" speedcall list and
+is still logged, though.
+
+===================== Possible Future Enhancements ====================

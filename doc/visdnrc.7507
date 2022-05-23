@@ -1,0 +1,158 @@
+################################################################
+#
+# Sample .visdnrc for visdn3 visdn for feature package 3.
+# See the man page in exptools on visdn.
+#
+# Changes from visdn for prophone:
+#
+#		The phone should be set to 9600, space, mode=EnhAT.
+#
+#		AUX (or MAIN2) port CANNOT be used unless a cable is rigged to provide
+#		fake eia signals. FP3 needs dtr to enable set monitoring and direct 
+# 	control. Using AUX with a special cable has not been fully explored.
+#
+# 	The comma character (,) cannot be used in this file for delay.
+# 	Instead use the tilde character (~).
+# 	The operation of other characters needs to be verified
+#
+# 	music=  lines are new for fp3 to provide musical ringing.
+#		One must be present for the phone to ring.
+#
+#		escape= lines are new for fp3 to provide general escape
+#		from centrex dialing
+#
+################################################################
+#
+# line for local area code
+areacode=708
+#
+# lines for mapping local exchanges for 5-digit dialing at IH
+exchange=979->9
+exchange=713->3
+exchange=224->4
+#
+# escape is the code to escape outside the centrex group
+# ih locations use *9   nsc locations use 9
+escape=*9
+#
+# ISDN feature buttons
+# button=row,col	flags...
+# speedlist=name	name=	value=
+#
+# the next line binds the AUTO button to the SaveQuery function so the name
+# is saved on the "Query History" speed call list when you initiate a
+# call to a query response
+button=3,3	name=AUTO	value=*B10	bind=SaveQuery	box	lamp=0a
+#
+button=1,1	name=90000
+button=2,1	name=90000
+button=3,1	name=90000
+button=1,2	name=CFA
+button=2,2	name=INSPCT
+button=3,2	name=LWC
+button=1,3	name=DIR ?
+button=2,3	name=NEXT
+# speed calling buttons
+button=4,3	name=TOM
+button=5,3	name=DICK
+button=6,3	name=HARRY
+button=7,3	name=REDIAL
+#
+# AUDIX buttons
+# 979 is the password in following line
+button=1,4	box	name=AUDIX	value=36000
+button=2,4	box	name=PASSWD	value=#~979#2
+button=3,4	box	name=Listen	value=0
+button=4,4	box	name=Delete	value=*3
+button=5,4	box	name=Skip	value=#
+button=6,4	box	name=Replay	value=23
+button=7,4	box	name=Restart	value=*7
+#
+# this button invokes the button 3 "snarf post" menu item
+button=9,4	name=  POST	box	value=	bind=SnarfPost
+#
+# the following buttons are the hard-to-remember codes for features
+# 6way conference call code
+button=1,5  name= 6-WAY box value=#6
+# programming speed call code (like you need it now)
+button=2,5  name=PRG SPD  box value=85
+# programming outside escape code when programming speed call, analagous to *9 for ih
+button=3,5  name=OUTSIDE  box value=#7
+# programming your call forwarding number
+button=5,5  name=PRG CF box value=#3
+
+
+# speed calling lists for button 2 menu
+
+speedlist=Group1		name=Smith, Jon	value=CA91111
+speedlist=Group1		name=Smith, Ralph	value=CA91111
+speedlist=Group1		name=Johnson, Bob	value=CA91111
+speedlist=Group1		name=Johnson, John 	value=CA91111
+speedlist=Group2		name=Smith, Jon 	value=CA91111
+speedlist=Group2		name=And, Paul 	value=CA91111
+speedlist=Group2		name=Wesson, Mark 	value=CA91111
+speedlist=Group3		name=Doe, John 	value=CA91111
+speedlist=Group3		name=Doe, Jenny 	value=CA91111
+speedlist=Group3		name=Doe, Gerald 	value=CA91111
+speedlist=Group3		name=Doe, Mike 	value=CA91111
+# include other speed calling lists
+#include=.dept.speedlst
+#
+# musical dialing strings follow
+# To enable a string remove the pound sign (#) comment character
+# from the one string you wish to use.
+# Comment out all other strings.
+
+# Personalized ringing pattern (1 through 7 are possible)
+# music=RingPattern1
+
+# Sousa stars and stripes, (about as long as possible)
+#music="O2T255L4e-2d4.e-8c4e-2f4g-4g4a-4a4b-4p4o1b-2o2g4p8g8g4g4g4p8g8a-4a-4f8e8f8g8f4e-4d4c4d4o1b-4o2b-4p8b-8b-4b-4b-4p8"
+#
+# Mozart, Turkish Waltz 
+#music="O1L16B16A16G#16A16O2C16P16D16C16O1B16O2C16E16P16F16E16D#16E16B16A16G#16A16B16A16G#16A16O3C4P4P4"
+#
+# Tschaikowsky June
+#music="O1L8def#gab-o2cdgf#gd2p8do1ao2co1b-pp4p8b-f#ag2p2"
+#
+# Bach Minuet
+#music="o2l8d4o1gabo2cd4o1g4g4o2e4cdef#g4o1g4g4o2c4dco1bab4o2c8o1bagf#4gabga64b4a2."
+#
+# Beethoven Fur Elise
+#music="t60o2l16ed#ed#eo1bo2dco1a8p16c16e16abp16eg#bo2c16p16"
+#
+#MacDowell To A Wild Rose
+#music="o2l8t88c#ee4o1bo2ee4c#ef#af#4c#4o1f#bb4o2c#4o1g#4f#bb4a2"
+#
+# Rachmaninoff  The Bumble Bee
+#music="o2l8t255ed#dc#cfed#ed#dc#cc#dd#ed#dc#cfed#ed#dc#cc#dd#"
+#
+# boing from hell
+#music="l64t255o0cc#dd#eff#gg#aa#bo1cc#dd#eff#gg#aa#bo2cc#dd#eff#gg#aa#bo3cc#dd#eff#gg#aa#bo4cc#dd#eff#gg#aa#b"
+#
+# low rumbly ring
+#music="l64t255o0co4b-o0co4b-o0co4b-o0co4b-o0co4b-o0co4b-o0co4b-o0co4b-o0co4b-o0co4b-o0co4b-"
+#
+# low rumbly jack hammer ring
+#music="l64t255o0co2f#o4b-o0co2f#o4b-o0co2f#o4b-o0co2f#o4b-o0co2f#o4b-o0co2f#o4b-o0co2f#o4b-o0co2f#o4b-"
+#
+#close to wildlife ring
+#music="l64t255o0co2f#o4b-p8o0co2f#o4b-o0co2f#p1o0co2f#o4b-p8o0co2f#o4b-o0co2f#p1"
+#
+#wildlife 2
+#music="l64t255o0co2f#o0co2f#o0co2f#o0co2f#o0co2f#o0co2f#"
+#
+# low trill
+#music="l64t255o0cc#cc#cc#cc#cc#cc#cc#cc#cc#cc#cc#cc#cc#cc#c"
+#
+# jazz swing
+#music="l8t180o1mncmlf.fg.mncmlf.p4p8mncmlf.fg.mncmlf.p4p8mncmlf.fg.mncmlf.fg.mncmlf.fg.mncmlf."
+#
+# misc noise
+#music="l64t255o3cc#dd#eff#gg#aa#bo4cc#dd#eff#gg#aa#ba#ag#gf#fed#dc#co3ba#ag#gf#fed#dc#c"
+#
+# from Rich Garcia, Guns and Roses, Sweet Child of Mine
+#music="V0L4T240o1d-o2d-o1a-g-o2g-o1a-o2fo1a-d-o2d-o1a-g-o2g-o1a-o2fo1a-e-o2d-o1a-g-o2g-o1a-o2fo1a-e-o2d-o1a-g-o2g-"
+#
+# ring-like sound
+music="V0L32T120o2dcdcdcdcdcdcdcdcdcdcp1"

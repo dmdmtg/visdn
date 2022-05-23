@@ -1,0 +1,20 @@
+h12682
+s 00001/00000/00002
+d D 1.2 92/09/10 16:54:42 trl 2 1
+c 
+e
+s 00002/00000/00000
+d D 1.1 92/07/23 13:49:09 trl 1 0
+c date and time created 92/07/23 13:49:09 by trl
+e
+u
+U
+t
+T
+I 2
+Common.h
+E 2
+I 1
+FILES
+makefile
+E 1

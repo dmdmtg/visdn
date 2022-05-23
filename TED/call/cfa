@@ -1,0 +1,17 @@
+# cfa - activate/program/deactivate call forwarding all
+# thanks to Dave Sedovic 930723
+#
+# usages:
+#
+# cfa # toggle cfa light
+# cfa 36003 # forward to audix (light must be off)
+# cfa '*9,123-4567' # forward outside (light must be off)
+
+[ ~ = \~ ] && exec /usr/lbin/ksh $0 "$@"	# run by ksh only
+
+[[ $# = 0 ]] && { vcall "*B4"; exit 0 ;}
+vcall "CA#8"
+sleep 5
+vcall "${1}#"
+sleep 5
+vcall "*BS,*B4"

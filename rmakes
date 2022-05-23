@@ -1,0 +1,10 @@
+# i486 is SVR4 (i386 is SVR3)
+i486	LIBS='i486_libpq.a -ldk -lnsl -lsocket $$TOOLS/lib/agent/lib/libwindows.a i486_other.o' HUSE730WINDOWS='-DUSE730WINDOWS'
+#
+ibm	LIBS='./ibm_libpq.a -ldk -lrx -lnsl -lsocket $$TOOLS/lib/agent/lib/libwindows.a -lbsd' HUSE730WINDOWS=''
+#
+# sparc is SunOS
+sparc	LIBS='./sparc_libpq.a -lnsl sparc_libdk.a $$TOOLS/lib/agent/lib/libwindows.a' HUSE730WINDOWS='-DUSE730WINDOWS'
+#
+# solaris is SVR4
+solaris	LIBS='./solaris_libpq.a -ldk -lnsl -lsocket $$TOOLS/lib/agent/lib/libwindows.a' HUSE730WINDOWS='-DUSE730WINDOWS'

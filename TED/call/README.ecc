@@ -1,0 +1,18 @@
+These files came from Ted Lowe.
+They allow calls to be made from the command line,
+and the CFA button to be set from the command line.
+
+They require changes to the host and terminal side of visdn.
+
+Unfortunately, the are very Ted-specific and require many files
+in his $HOME that we don't have.
+
+Eric Claeys
+6/24/94
+
+
+
+10/1996: in late 1994 or sometime in 1995, I implemented a more
+general solution to the "cfa" button and called the shell script "cisdn".
+It required changes to the UNIX and 730 sides (also did this same
+change for the X version).
